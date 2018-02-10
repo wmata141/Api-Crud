@@ -19,11 +19,14 @@ constructor(props) {
 
   this.state = {
     cedula: this.props.cedula,
+    cedulaError: "",
     nombre: this.props.nombre,
+    nombreError: "",
     apellido: this.props.apellido,
+    apellidoError: "",
     edad: this.props.edad,
+    edadError: "",
     titulo: this.props.titulo || "Nuevo Cliente",
-
   }
 }
 
@@ -39,8 +42,56 @@ change(e) {
 
 onSubmit(e) {
   e.preventDefault();
-  this.props.onSubmit(this.state);
+  const err = this.validate();
+
+  if (!err) {
+    this.props.onSubmit(this.state);
+  }
+
 };
+
+validate = () => {
+    let isError = false;
+
+    const errors = {
+      cedulaError: "",
+      nombreError: "",
+      apellidoError: "",
+      edadError: ""
+    };
+
+    if(!this.state.cedula) {
+      isError = true; errors.cedulaError = "El campo no puede quedar vacio";
+    } else {
+      if (this.state.cedula.length < 5 || this.state.cedula.length > 10) { isError = true; errors.cedulaError = "Cedula debe contener entre 5 y 10 digitos";};
+      if (isNaN(this.state.cedula)) { isError = true; errors.cedulaError = "Cedula debe contener solo digitos";};
+    }
+    if(!this.state.nombre) {
+      isError = true; errors.nombreError = "El campo no puede quedar vacio";
+    }else{
+      if (this.state.nombre.length < 3 || this.state.nombre.length > 20) { isError = true; errors.nombreError = "Nombre debe contener entre 3 y 20 letras";};
+      if (!isNaN(this.state.nombre)) { isError = true; errors.nombreError = "Nombre debe contener solo letras";};
+    }
+    if(!this.state.apellido) {
+      isError = true; errors.apellidoError = "El campo no puede quedar vacio";
+    }else{
+      if (this.state.apellido.length < 3 || this.state.apellido.length > 20) { isError = true; errors.apellidoError = "apellido debe contener entre 3 y 20 letras";};
+      if (!isNaN(this.state.apellido)) { isError = true; errors.apellidoError = "Apellido debe contener solo letras";};
+    }
+    if(!this.state.edad) {
+      isError = true; errors.edadError = "El campo no puede quedar vacio";
+    }else{
+      if (this.state.edad < 10 || this.state.edad > 99) { isError = true; errors.edadError = "Edad debe estar entre 10 y 99 años";};
+      if (isNaN(this.state.edad)) { isError = true; errors.edadError = "Edad debe contener solo digitos";};
+    }
+
+      this.setState({
+        ...this.state,
+        ...errors
+      });
+
+    return isError;
+  };
 
   render() {
     return (
@@ -51,7 +102,7 @@ onSubmit(e) {
             <TextField
               id="cedula"
               value={this.state.cedula}
-              required="required"
+              errorText={this.state.cedulaError}
               hintText="Cedula"
               floatingLabelText="Cedula"
               name="cedula"
@@ -61,7 +112,7 @@ onSubmit(e) {
             <TextField
               id="nombre"
               value={this.state.nombre}
-              required="required"
+              errorText={this.state.nombreError}
               hintText="Nombre"
               floatingLabelText="Nombre"
               name="nombre"
@@ -71,28 +122,28 @@ onSubmit(e) {
             <TextField
               id="apellido"
               value={this.state.apellido}
-              required="required"
+              errorText={this.state.apellidoError}
               hintText="Apellido"
               floatingLabelText="Apellido"
               name="apellido"
-                disabled={this.props.disabled}
+              disabled={this.props.disabled}
               onChange={e => this.change(e)}
             /><br />
             <TextField
               id="edad"
               value={this.state.edad}
-              required="required"
+              errorText={this.state.edadError}
               hintText="Edad"
               floatingLabelText="Edad"
               name="edad"
-                disabled={this.props.disabled}
+              disabled={this.props.disabled}
               onChange={e => this.change(e)}
             /><br /><br />
             <RaisedButton
               onClick={e => this.onSubmit(e)}
               label="GUARDAR"
               primary={true}
-                disabled={this.props.disabled}
+              disabled={this.props.disabled}
               style={style.button}
             />
             <Link to="/cliente"><RaisedButton

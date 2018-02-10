@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import { fetchBlogPost, updateBlogPost } from './Action';
+import { fetchBlogPost, updateBlogPost } from './ActionCliente';
 
 export default class Update extends Component {
 
@@ -28,10 +28,12 @@ constructor(props) {
     .catch((err) => {
         console.error('err', err);
     });
+
 }
 
 handleSubmit(data) {
   updateBlogPost(this.state.id_cliente, data);
+  window.location.href='/cliente';
 }
 
   render() {

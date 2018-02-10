@@ -12,11 +12,12 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 // Colors
-import {blue500, cyan500} from 'material-ui/styles/colors';
+import {blue500, cyan500, pinkA200} from 'material-ui/styles/colors';
 // Button
 import EditIcon from 'material-ui/svg-icons/image/edit';
 import TrashIcon from 'material-ui/svg-icons/action/delete';
 import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
+import ShoppingCar  from 'material-ui/svg-icons/action/shopping-cart';
 
 const style = {
   paper: { margin:20, textAlign:'center'},
@@ -85,6 +86,9 @@ export default class Tables extends Component {
                 <TableRowColumn>{x.apellido}</TableRowColumn>
                 <TableRowColumn>{x.edad}</TableRowColumn>
                 <TableRowColumn>
+                <Link to={`/compra/${x.id_cliente}`}><ShoppingCar
+                    color={cyan500} hoverColor={pinkA200}/>
+                  </Link>
                   <Link to={`/cliente/detail/${x.id_cliente}`}><EyeIcon
                     color={blue500} hoverColor={cyan500}/>
                   </Link>

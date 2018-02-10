@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import { fetchBlogPost } from './Action';
+import { fetchBlogPost } from './ActionCliente';
 
 export default class Detail extends Component {
 

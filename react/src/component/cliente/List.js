@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Table from './Table';
-import { fetchBlogPosts, deleteBlogPost } from './Action';
+import { fetchBlogPosts, deleteBlogPost } from './ActionCliente';
 
 class List extends Component {
 
@@ -37,6 +37,7 @@ onDelete(id) {
           }).bind(this);
       })
       .catch((err) => {
+          window.location.href='/cliente';
           console.error('err', err);
       });
 }

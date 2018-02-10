@@ -23,14 +23,14 @@ router.get('/cliente/:id', function(request, response) {
 
 //Insertar cliente
 router.post('/cliente', function(request, response) { 
-      var datoscliente = {
+      var datosCliente = {
             id_cliente : null,
             cedula : request.body.cedula,
             nombre : request.body.nombre,
             apellido : request.body.apellido,
             edad : request.body.edad
       };
-      clienteModel.insertCliente(datoscliente,function(error, datos) {
+      clienteModel.insertCliente(datosCliente,function(error, datos) {
             if(datos) {
                   response.status(200).json({"Mensaje":"Insertado"});
             } else {
@@ -48,7 +48,6 @@ router.put('/cliente/:id', function(request, response) {
             apellido : request.body.apellido,
             edad     : request.body.edad
       };
-      console.log("routes datoscliente -->", datosCliente);
       clienteModel.updateCliente(datosCliente, function(error, datos) {
             //si el cliente se ha actualizado mostramos un mensaje         
             if(datos && datos.mensaje) {

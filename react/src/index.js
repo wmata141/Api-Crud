@@ -6,11 +6,19 @@ import './Estilos.css';
 import AppRoutes from './routes'
 // Component
 import registerServiceWorker from './registerServiceWorker';
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
+import { loadProducts } from './component/producto/ActionProducto';
+
+store.dispatch(loadProducts());
 
 render(
-    <Router>
-        <AppRoutes />
-    </Router>,
+    <Provider store={store}>
+        <Router>
+            <AppRoutes />
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );
 registerServiceWorker();

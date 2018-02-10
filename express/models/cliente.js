@@ -1,3 +1,5 @@
+// import { log } from 'util';
+
 var connection = require('../models/connection');
 
 var cliente = {};
@@ -32,7 +34,7 @@ cliente.getClienteById = function(id,callback) {
 //Añadir un nuevo Cliente
 cliente.insertCliente = function(ClienteData,callback) {
 	if (connection) {
-		connection.query('INSERT INTO cliente SET ?', ClienteData, function(error, result) {
+		connection.query('INSERT IGNORE INTO cliente SET ?', ClienteData, function(error, result) {
 			if(error) {
 				throw error;
 			} else {
@@ -46,7 +48,7 @@ cliente.insertCliente = function(ClienteData,callback) {
 //Actualizar un Cliente
 cliente.updateCliente = function(datosCliente, callback) {
 	if(connection) {
-		var sql = ' UPDATE cliente SET';
+		var sql = ' UPDATE IGNORE cliente SET';
 			sql+= ' cedula   ='+ connection.escape(datosCliente.cedula);
 			sql+= ',nombre   ='+ connection.escape(datosCliente.nombre);
 			sql+= ',apellido ='+ connection.escape(datosCliente.apellido);

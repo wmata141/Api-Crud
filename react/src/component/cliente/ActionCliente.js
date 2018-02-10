@@ -25,7 +25,13 @@ export function updateBlogPost(id, data) {
             'Content-Type': 'application/json'
         }
     }).then(res => {
-        return res;
+        console.log("res.status ActionCliente",res.status);
+        if(res.status === 200) {
+          window.alert('UPDATE CLIENTE SUCCESSFUL');
+          return res;
+        } else {
+          window.alert('ERROR UPDATE');
+        }
     }).catch(err => {
         console.error(err);
     });
@@ -40,8 +46,15 @@ export function createBlogPost(data) {
             'Content-Type': 'application/json'
         }
     }).then(res => {
-        return res;
-    }).catch(err => err);
+        if(res.status === 200) {
+          window.alert('CREATE CLIENTE SUCCESSFUL');
+          return res;
+        } else {
+          window.alert('ERROR CREATE');
+        }
+    }).catch(err => {
+        console.error(err);
+    });
 }
 
 export function deleteBlogPost(id) {
@@ -49,6 +62,11 @@ export function deleteBlogPost(id) {
         method: 'DELETE',
         mode: 'CORS'
     }).then(res => {
+      if(res.status === 200) {
+        window.alert('DELETE CLIENTE SUCCESSFUL');
         return res;
+      } else {
+        window.alert('ERROR DELETE');
+      }
     }).catch(err => err);
 }
