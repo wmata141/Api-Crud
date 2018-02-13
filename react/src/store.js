@@ -17,6 +17,22 @@ const products = (state=[], action) => {
   }
 };
 
+const ventas = (state=[], action) => {
+  switch(action.type) {
+    case "REPLACE_VENTAS":
+       return action.ventas;
+
+    case "ADD_VENTAS":
+      return state.concat(action.ventas);
+
+    case "SELECT_VENTAS":
+      return action.ventas;
+
+   default:
+    return state;
+  }
+};
+
 const cart = (state=[], action) => {
   switch(action.type) {
     case "ADD_TO_CART":
@@ -33,21 +49,15 @@ const cart = (state=[], action) => {
       return state.filter(product => product.id_producto !== action.product.id_producto);
 
     case "ADD_TO_COMPRA":
+      state.length=0;
       return state.concat();
-   default:
-    return state;
-  }
-};
-
-const ventas = (state=[], action) => {
-  switch(action.type) {
-    case "REPLACE_VENTAS":
-       return action.ventas;
 
    default:
     return state;
   }
 };
+
+
 
 const logger = store => next => action => {
     console.log('dispatching', action)
@@ -56,4 +66,4 @@ const logger = store => next => action => {
     return result
 }
 
-export default createStore(combineReducers({cart, products}), applyMiddleware(logger, thunk));
+export default createStore(combineReducers({cart, products, ventas}), applyMiddleware(logger, thunk));

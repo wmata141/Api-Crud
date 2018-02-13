@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { addToCart } from './ActionVenta';
 import { connect } from 'react-redux';
@@ -16,10 +16,16 @@ const styles = {
   }
 };
 
-const ProductList = ({ products, addToCart }) => {
+class ProductList extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div style={styles.products}>
-        {products.map(product =>
+        {this.props.products.map(product =>
           <div className="thumbnail" style={styles.product} key={product.id_cliente}>
             <div className="panel-heading">
               <h4 className="panel-title">{product.nombre}</h4>
@@ -28,15 +34,16 @@ const ProductList = ({ products, addToCart }) => {
             <div className="caption">
               <div className="panel-footer">
               <p>
-                <Button bsStyle="primary" onClick={() => addToCart(product)} role="button" disabled={product.inventory <= 0}>${product.precio} <Glyphicon glyph="shopping-cart" /></Button>
+                <Button bsStyle="primary" onClick={() => this.props.addToCart(product)} role="button" disabled={product.inventory <= 0}>${product.precio} <Glyphicon glyph="shopping-cart" /></Button>
               </p>
               </div>
             </div>
           </div>
         )}
       </div>
-    );
-  };
+    )
+  }
+}
 
 const mapStateToProps = state => {
   return {

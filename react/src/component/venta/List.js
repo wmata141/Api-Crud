@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,9 +12,8 @@ import {
   TableRow,
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import { Button, Glyphicon } from 'react-bootstrap';
 // Colors
-import {blue500, cyan500, pinkA200} from 'material-ui/styles/colors';
+import {blue500, cyan500} from 'material-ui/styles/colors';
 // Button
 import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
 
@@ -27,8 +26,13 @@ const style = {
   derecha: { textAlign: 'right' }
 };
 
-const List = ({ products, fetchBlogPost }) => {
+class List extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
   const emptyMessage = (
     <Paper style={style.paper} zDepth={2}>
     <Table>
@@ -52,7 +56,7 @@ const List = ({ products, fetchBlogPost }) => {
     </Paper>
   );
 
-  const productsList = (
+  const ventasList = (
     <div className="Venta">
     <Paper style={style.paper} zDepth={2}>
     <Table
@@ -67,7 +71,7 @@ const List = ({ products, fetchBlogPost }) => {
         enableSelectAll={false}
     >
     <TableRow>
-      <TableHeaderColumn colSpan="6" style={style.derecha}>
+      <TableHeaderColumn colSpan="4" style={style.derecha}>
       <ToolbarGroup>
           <ToolbarTitle text="Ventas" />
           <Link to="/"><RaisedButton
@@ -79,7 +83,6 @@ const List = ({ products, fetchBlogPost }) => {
     <TableRow>
       <TableHeaderColumn tooltip="Identificador">Factura</TableHeaderColumn>
       <TableHeaderColumn tooltip="Cliente">Cliente</TableHeaderColumn>
-      <TableHeaderColumn tooltip="Productos">Productos</TableHeaderColumn>
       <TableHeaderColumn tooltip="Fecha">Fecha</TableHeaderColumn>
       <TableHeaderColumn></TableHeaderColumn>
     </TableRow>
@@ -90,15 +93,13 @@ const List = ({ products, fetchBlogPost }) => {
       showRowHover={true}
       stripedRows={true}
     >
-    {products.map(product =>
-      <TableRow key={product.id_producto} selectable={false}>
-        <TableRowColumn>{product.id_producto}</TableRowColumn>
-        <TableRowColumn>{product.nombre}</TableRowColumn>
-        <TableRowColumn>{product.cantidad}</TableRowColumn>
-        <TableRowColumn>{product.fecha}</TableRowColumn>
+    {this.props.ventas.map(vent =>
+      <TableRow key={vent.id_venta} selectable={false}>
+        <TableRowColumn>{vent.id_venta}</TableRowColumn>
+        <TableRowColumn>{vent.id_cliente}</TableRowColumn>
+        <TableRowColumn>{vent.fecha}</TableRowColumn>
         <TableRowColumn>
-
-          <Link to={`/venta/detail/${product.id_venta}`}><EyeIcon
+          <Link to={`/venta/detail/${vent.id_venta}`}><EyeIcon
             color={blue500} hoverColor={cyan500}/>
           </Link>
         </TableRowColumn>
@@ -112,22 +113,21 @@ const List = ({ products, fetchBlogPost }) => {
 
   return (
     <div>
-      {products.length === 0 ? emptyMessage : productsList}
+      {this.props.ventas.length === 0 ? emptyMessage : ventasList}
     </div>
   );
-};
-
+  };
+}
 const mapStateToProps = state => {
   return {
-    products: state.products
-    // ventas: state.ventas
+    ventas: state.ventas
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchBlogPost(product) {
-      dispatch(fetchBlogPost(product));
+    fetchBlogPost(vent) {
+      dispatch(fetchBlogPost(vent));
     }
   };
 }

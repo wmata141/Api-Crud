@@ -98,7 +98,7 @@ validate = () => {
       <form>
         <div id="cliente">
           <Paper style={style.paper} zDepth={2}>
-            <Subheader>{this.state.titulo}</Subheader>
+            <Subheader><b>{this.state.titulo}</b></Subheader>
             <TextField
               id="cedula"
               value={this.state.cedula}

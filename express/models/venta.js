@@ -32,14 +32,24 @@ venta.getVentaById = function(id,callback) {
 //Añadir un nuevo Venta
 venta.insertVenta = function(VentaData,callback) {
 	if (connection) {			
-		connection.query('INSERT INTO venta SET ?', VentaData, function(error, result) {
+		var venta = [];			
+		venta = {
+			id_venta: null,
+			id_cliente: VentaData[0].id_cliente
+		}
+		connection.query('INSERT INTO venta SET ?', venta, function(error, result) {
 			if(error) {
 				throw error;
 			} else {
-				//insertamos el resto con el id de Venta insertado			
-				for(var i=1; i<VentaData.length; i++) {
-					VentaData[i].id_venta = result.insertId;
-					connection.query('INSERT INTO venta SET ?', VentaData[i]);
+				//insertamos el resto con el id de Venta insertado	
+				var venta_detalle = [];			
+				for(var i=0; i<VentaData.length; i++) {
+					venta_detalle[i] = {
+						id_venta: result.insertId,
+						id_producto: VentaData[i].id_producto,
+						cantidad: VentaData[i].cantidad
+					}				
+					connection.query('INSERT INTO venta_detalle SET ?', venta_detalle[i]);
 				}
 				//devolvemos el id de Venta insertado	
 				callback(null, result.insertId);

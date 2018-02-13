@@ -6,33 +6,18 @@ export function loadVentas() {
       .then(response => {
         dispatch({
           type: "REPLACE_VENTAS",
-          products: response.data
+          ventas: response.data
         })
       });
     };
 }
 
-export function createBlogPost(data) {
-    return fetch("/cliente", {
-        method: 'POST',
-        mode: 'CORS',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
-        if(res.status === 200) {
-          window.alert('CREATE CLIENTE SUCCESSFUL');
-          return res;
-        } else {
-          window.alert('ERROR CREATE');
-        }
-    }).catch(err => {
-        console.error(err);
-    });
-}
+export function addToCompra(cart, id) {
+  // Objeto el cual se añadira a cart con el id_venta
+  var objeto = new Object();
+  objeto.id_cliente = id;
+  cart.push(objeto);
 
-export function addToCompra(cart) {
   return dispatch => {
     fetch("/venta", {
         method: 'POST',

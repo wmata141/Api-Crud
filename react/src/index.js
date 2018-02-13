@@ -10,8 +10,10 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import store from './store';
 import { loadProducts } from './component/producto/ActionProducto';
+import { loadVentas } from './component/venta/ActionVenta';
 
 store.dispatch(loadProducts());
+store.dispatch(loadVentas());
 
 render(
     <Provider store={store}>

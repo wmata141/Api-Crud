@@ -22,12 +22,13 @@ router.get('/venta/:id', function(request, response) {
 });
 
 //Insertar venta
-router.post('/venta', function(request, response) { 
+router.post('/venta', function(request, response) {   
+      var id = request.body.splice(-1);
       var datosVenta = [];
+      
       for(var i=0; i<request.body.length; i++) {
-            datosVenta[i] = {
-                  id_venta : null,
-                  id_cliente : 1,
+            datosVenta[i] = {       
+                  id_cliente : id[0].id_cliente,      
                   id_producto : request.body[i].id_producto,
                   cantidad : request.body[i].stock_user
             };

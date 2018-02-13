@@ -38,7 +38,6 @@ handleSubmit(data) {
   window.location.href='/cliente';
 }
 
-
   render() {
     return (
       <div>
@@ -46,11 +45,11 @@ handleSubmit(data) {
           titulo="Detalle Producto"
           disabled={true}
           id_producto={this.state.id_producto}
-          codigo={this.state.codigo}
-          tipo={this.state.tipo}
-          nombre={this.state.nombre}
-          precio={this.state.precio}
-          image={this.state.image}>
+          codigo     ={this.state.codigo}
+          tipo       ={this.state.tipo}
+          nombre     ={this.state.nombre}
+          precio     ={this.state.precio}
+          image      ={this.state.image}>
         </Form>
       </div>
     );
