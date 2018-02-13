@@ -12,10 +12,6 @@ import {
   TableRow,
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-// Colors
-import {blue500, cyan500} from 'material-ui/styles/colors';
-// Button
-import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
 
 import { fetchBlogPost } from './ActionVenta';
 
@@ -30,6 +26,30 @@ class List extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      ventas: []
+    };
+
+    fetchBlogPost(this.props.match.params.id_venta)
+      .then((data) => {
+          this.setState(state => {
+              console.log(data);
+              var valores = [];
+              for(var i=0;i<data.length;i++){
+                valores[i] = {
+                  id_venta: data[i].id_venta,
+                  nombre_producto: data[i].nombre_producto,
+                  cantidad: data[i].cantidad
+                }
+              }
+              state.ventas = valores;
+              return state;
+          });
+      })
+      .catch((err) => {
+          console.error('err', err);
+      });
   }
 
   render() {
@@ -41,10 +61,10 @@ class List extends Component {
       adjustForCheckbox={false}
       >
       <TableRow>
-        <TableHeaderColumn style={style.derecha} colSpan="6" >
+        <TableHeaderColumn style={style.derecha} colSpan="2" >
           <ToolbarGroup>
             <ToolbarTitle text="VENTAS" />
-            <Link to="/"><RaisedButton
+            <Link to="/venta"><RaisedButton
                 label="SALIR" primary={true} />
             </Link>
           </ToolbarGroup>
@@ -71,20 +91,18 @@ class List extends Component {
         enableSelectAll={false}
     >
     <TableRow>
-      <TableHeaderColumn colSpan="4" style={style.derecha}>
+      <TableHeaderColumn colSpan="2" style={style.derecha}>
       <ToolbarGroup>
           <ToolbarTitle text="Ventas" />
-          <Link to="/"><RaisedButton
+          <Link to="/venta"><RaisedButton
               label="SALIR" primary={true} />
           </Link>
       </ToolbarGroup>
       </TableHeaderColumn>
     </TableRow>
     <TableRow>
-      <TableHeaderColumn tooltip="Identificador">Factura</TableHeaderColumn>
-      <TableHeaderColumn tooltip="Cliente">Cliente</TableHeaderColumn>
-      <TableHeaderColumn tooltip="Fecha">Fecha</TableHeaderColumn>
-      <TableHeaderColumn></TableHeaderColumn>
+      <TableHeaderColumn tooltip="Producto">Producto</TableHeaderColumn>
+      <TableHeaderColumn tooltip="Cantidad">Cantidad</TableHeaderColumn>
     </TableRow>
     </TableHeader>
     <TableBody
@@ -93,16 +111,10 @@ class List extends Component {
       showRowHover={true}
       stripedRows={true}
     >
-    {this.props.ventas.map(vent =>
+    {this.state.ventas.map(vent =>
       <TableRow key={vent.id_venta} selectable={false}>
-        <TableRowColumn>{vent.id_venta}</TableRowColumn>
-        <TableRowColumn>{vent.nombre_cliente}</TableRowColumn>
-        <TableRowColumn>{vent.fecha}</TableRowColumn>
-        <TableRowColumn>
-          <Link to={`/venta/detail/${vent.id_venta}`}><EyeIcon
-            color={blue500} hoverColor={cyan500}/>
-          </Link>
-        </TableRowColumn>
+        <TableRowColumn>{vent.nombre_producto}</TableRowColumn>
+        <TableRowColumn>{vent.cantidad}</TableRowColumn>
       </TableRow>
     )}
     </TableBody>

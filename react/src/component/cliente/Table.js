@@ -27,11 +27,6 @@ const style = {
 
 export default class Tables extends Component {
 
-  constructor(props) {
-    super(props);
-
-  }
-
   deleteHandler(i, e) {
     e.preventDefault();
     this.props.onDelete(this.props.blogPosts[i].id_cliente);

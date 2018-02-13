@@ -13,14 +13,14 @@ const styles = {
 
 class ShoppingCart extends Component {
 
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
       <Panel header="Shopping Cart">
-        <Table fill>
+        <Table>
           <tbody>
           {this.props.cart.map(product =>
             <tr key={product.id_producto}>

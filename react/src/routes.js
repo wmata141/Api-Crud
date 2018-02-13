@@ -16,6 +16,7 @@ import UpdateProducto from './component/producto/Update';
 // Venta
 import Compra from './component/venta/Compra';
 import Venta from './component/venta/List';
+import DetailVenta from './component/venta/Detail';
 
 const AppRoutes = () =>
     <App>
@@ -34,6 +35,8 @@ const AppRoutes = () =>
             <Route exact path="/compra/:id_cliente" component={Compra} />
 
             <Route exact path="/venta" component={Venta} />
+            <Route exact path="/venta/detail/:id_venta" component={DetailVenta} />
+
             <Route component={Home} />
         </Switch>
     </App>

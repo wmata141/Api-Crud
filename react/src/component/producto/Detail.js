@@ -19,11 +19,11 @@ constructor(props) {
   fetchBlogPost(this.state.id_producto)
     .then((data) => {
         this.setState(state => {
-            state.codigo =data[0].codigo;
-            state.tipo   =data[0].tipo;
-            state.nombre =data[0].nombre;
-            state.precio =data[0].precio;
-            state.image  =data[0].image;
+            state.codigo = data[0].codigo;
+            state.tipo   = data[0].tipo;
+            state.nombre = data[0].nombre;
+            state.precio = data[0].precio;
+            state.image  = data[0].image;
             return state;
         });
     })
@@ -44,12 +44,12 @@ handleSubmit(data) {
         <Form onSubmit={this.handleSubmit.bind(this)}
           titulo="Detalle Producto"
           disabled={true}
-          id_producto={this.state.id_producto}
-          codigo     ={this.state.codigo}
-          tipo       ={this.state.tipo}
-          nombre     ={this.state.nombre}
-          precio     ={this.state.precio}
-          image      ={this.state.image}>
+          id_producto = { this.state.id_producto }
+          codigo = { this.state.codigo }
+          tipo   = { this.state.tipo }
+          nombre = { this.state.nombre }
+          precio = { this.state.precio }
+          image  = { this.state.image }>
         </Form>
       </div>
     );

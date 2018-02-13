@@ -14,8 +14,9 @@ export function loadVentas() {
 
 export function addToCompra(cart, id) {
   // Objeto el cual se añadira a cart con el id_venta
-  var objeto = new Object();
-  objeto.id_cliente = id;
+  var objeto = {
+    id_cliente: id
+  }
   cart.push(objeto);
 
   return dispatch => {

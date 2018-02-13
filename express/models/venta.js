@@ -5,7 +5,7 @@ var venta = {};
 //Obtenemos todos los venta
 venta.getVenta = function(callback) {
 	if (connection)	{
-		connection.query('SELECT *FROM venta', function(error, rows) {
+		connection.query('SELECT (SELECT nombre FROM cliente WHERE id_cliente=venta.id_cliente) AS nombre_cliente,id_venta,fecha FROM venta', function(error, rows) {
 			if(error) {
 				throw error;
 			} else {
@@ -18,7 +18,7 @@ venta.getVenta = function(callback) {
 //Obtenemos un Venta por su id
 venta.getVentaById = function(id,callback) {
 	if (connection) {
-		var sql = 'SELECT *FROM venta WHERE id_venta =' + connection.escape(id);
+		var sql = 'SELECT (SELECT nombre FROM producto WHERE id_producto=venta_detalle.id_producto) AS nombre_producto, cantidad FROM venta_detalle WHERE id_venta =' + connection.escape(id);
 		connection.query(sql, function(error, row) {
 			if(error) {
 				throw error;

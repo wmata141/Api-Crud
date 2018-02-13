@@ -67,6 +67,7 @@ const List = ({ products, removeFromCart, fetchBlogPost }) => {
       </Table>
       <div style={style.products}>
           {products.map(product =>
+            <div key={product.id_producto}>
             <div className="thumbnail" style={style.product} key={product.id_cliente}>
               <div className="panel-heading">
                 <h4 className="panel-title"><Link to={`/producto/detail/${product.id_producto}`}>{product.nombre}</Link></h4>
@@ -82,6 +83,7 @@ const List = ({ products, removeFromCart, fetchBlogPost }) => {
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           )}
       </div>

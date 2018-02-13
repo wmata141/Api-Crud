@@ -18,24 +18,26 @@ const styles = {
 
 class ProductList extends Component {
 
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
       <div style={styles.products}>
         {this.props.products.map(product =>
-          <div className="thumbnail" style={styles.product} key={product.id_cliente}>
-            <div className="panel-heading">
-              <h4 className="panel-title">{product.nombre}</h4>
-            </div>
-            <img src={product.image} alt={product.nombre} />
-            <div className="caption">
-              <div className="panel-footer">
-              <p>
-                <Button bsStyle="primary" onClick={() => this.props.addToCart(product)} role="button" disabled={product.inventory <= 0}>${product.precio} <Glyphicon glyph="shopping-cart" /></Button>
-              </p>
+          <div key={product.id_producto}>
+            <div className="thumbnail" style={styles.product} key={product.id_cliente}>
+              <div className="panel-heading">
+                <h4 className="panel-title">{product.nombre}</h4>
+              </div>
+              <img src={product.image} alt={product.nombre} />
+              <div className="caption">
+                <div className="panel-footer">
+                <p>
+                  <Button bsStyle="primary" onClick={() => this.props.addToCart(product)} role="button" disabled={product.inventory <= 0}>${product.precio} <Glyphicon glyph="shopping-cart" /></Button>
+                </p>
+                </div>
               </div>
             </div>
           </div>
