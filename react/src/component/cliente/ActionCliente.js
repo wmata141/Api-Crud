@@ -1,14 +1,19 @@
 import fetch from 'isomorphic-fetch';
+import axios from 'axios';
 
-export function fetchBlogPosts() {
-  return fetch("/cliente", {
-      method: 'GET',
-      mode: 'CORS'
-  }).then(res => res.json())
-  .catch(err => err);
-}
+export function fetchClientes() {
+    return dispatch => {
+      return axios.get("/cliente")
+      .then(response => {
+        dispatch({
+          type: "FETCH_CLIENTES",
+          clientes: response.data
+        })
+      });
+    };
+};
 
-export function fetchBlogPost(id) {
+export function fetchCliente(id) {
     return fetch("/cliente/" + id, {
         method: 'GET',
         mode: 'CORS'
@@ -16,7 +21,7 @@ export function fetchBlogPost(id) {
     .catch(err => err);
 }
 
-export function updateBlogPost(id, data) {
+export function updateCliente(id, data) {
     return fetch("/cliente/" + id, {
         method: 'PUT',
         mode: 'CORS',
@@ -25,9 +30,7 @@ export function updateBlogPost(id, data) {
             'Content-Type': 'application/json'
         }
     }).then(res => {
-        console.log("res.status ActionCliente",res.status);
         if(res.status === 200) {
-          window.alert('UPDATE CLIENTE SUCCESSFUL');
           return res;
         } else {
           window.alert('ERROR UPDATE');
@@ -37,7 +40,7 @@ export function updateBlogPost(id, data) {
     });
 }
 
-export function createBlogPost(data) {
+export function createCliente(data) {
     return fetch("/cliente", {
         method: 'POST',
         mode: 'CORS',
@@ -47,7 +50,6 @@ export function createBlogPost(data) {
         }
     }).then(res => {
         if(res.status === 200) {
-          window.alert('CREATE CLIENTE SUCCESSFUL');
           return res;
         } else {
           window.alert('ERROR CREATE');
@@ -57,16 +59,16 @@ export function createBlogPost(data) {
     });
 }
 
-export function deleteBlogPost(id) {
-    return fetch("/cliente/" + id, {
-        method: 'DELETE',
-        mode: 'CORS'
-    }).then(res => {
-      if(res.status === 200) {
-        window.alert('DELETE CLIENTE SUCCESSFUL');
-        return res;
-      } else {
-        window.alert('ERROR DELETE');
-      }
-    }).catch(err => err);
-}
+export function deleteCliente(client) {
+    return dispatch => {
+      return fetch("/cliente/" + client.id_cliente, {
+          method: 'DELETE',
+          mode: 'CORS'
+      }).then(res => {
+          dispatch({
+            type: "DELETE_CLIENTES",
+            client
+        })
+      });
+    };
+};

@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import axios from 'axios';
 
-export function fetchBlogPost(id) {
+export function fetchProducto(id) {
     return fetch("/producto/" + id, {
         method: 'GET',
         mode: 'CORS'
@@ -9,33 +9,33 @@ export function fetchBlogPost(id) {
     .catch(err => err);
 }
 
-export function loadProducts() {
+export function fetchProductos() {
     return dispatch => {
       return axios.get("/producto")
       .then(response => {
         dispatch({
-          type: "REPLACE_PRODUCTS",
-          products: response.data
+          type: "FETCH_PRODUCTS",
+          productos: response.data
         })
       });
     };
 };
 
-const removeFromCart = product => {
+export function deleteProducto(product) {
     return dispatch => {
       return fetch("/producto/" + product.id_producto, {
           method: 'DELETE',
           mode: 'CORS'
       }).then(res => {
           dispatch({
-            type: "REMOVE_PRODUCTS",
+            type: "DELETE_PRODUCTS",
             product
         })
       });
     };
 };
 
-export function createBlogPost(data) {
+export function createProducto(data) {
     return fetch("/producto", {
         method: 'POST',
         mode: 'CORS',
@@ -45,7 +45,6 @@ export function createBlogPost(data) {
         }
     }).then(res => {
         if(res.status === 200) {
-          window.alert('CREATE PRODUCTO SUCCESSFUL');
           return res;
         } else {
           window.alert('ERROR CREATE');
@@ -55,7 +54,7 @@ export function createBlogPost(data) {
     });
 }
 
-export function updateBlogPost(id, data) {
+export function updateProducto(id, data) {
     return fetch("/producto/" + id, {
         method: 'PUT',
         mode: 'CORS',
@@ -66,7 +65,6 @@ export function updateBlogPost(id, data) {
     }).then(res => {
         console.log("res.status ActionCliente",res.status);
         if(res.status === 200) {
-          window.alert('UPDATE CLIENTE SUCCESSFUL');
           return res;
         } else {
           window.alert('ERROR UPDATE');
@@ -75,17 +73,3 @@ export function updateBlogPost(id, data) {
         console.error(err);
     });
 }
-
-const addToCart = product => {
-    return {
-        type: "ADD_TO_CART",
-        product
-    }
-};
-
-export {
-  // loadProducts,
-  // fetchBlogPost,
-  addToCart,
-  removeFromCart
-};

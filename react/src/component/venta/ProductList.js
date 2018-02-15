@@ -4,28 +4,16 @@ import { addToCart } from './ActionVenta';
 import { connect } from 'react-redux';
 
 const styles = {
-  products: {
-    display: 'flex',
-    alignItems: 'stretch',
-    flexWrap: 'wrap'
-  },
-  product: {
-    width: '120px',
-    marginLeft: 10,
-    marginRight: 10
-  }
+  products: { display: 'flex', alignItems: 'stretch', flexWrap: 'wrap' },
+  product: { width: '120px', marginLeft: 10, marginRight: 10 }
 };
 
 class ProductList extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <div style={styles.products}>
-        {this.props.products.map(product =>
+        {this.props.productos.map(product =>
           <div key={product.id_producto}>
             <div className="thumbnail" style={styles.product} key={product.id_cliente}>
               <div className="panel-heading">
@@ -49,7 +37,7 @@ class ProductList extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    productos: state.productos
   };
 };
 

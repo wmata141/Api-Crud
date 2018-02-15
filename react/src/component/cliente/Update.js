@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import { fetchBlogPost, updateBlogPost } from './ActionCliente';
+import { fetchCliente, updateCliente } from './ActionCliente';
 
 export default class Update extends Component {
 
@@ -15,7 +15,7 @@ constructor(props) {
     edad:null
   };
 
-  fetchBlogPost(this.state.id_cliente)
+  fetchCliente(this.state.id_cliente)
     .then((data) => {
         this.setState(state => {
             state.cedula=data[0].cedula;
@@ -32,7 +32,7 @@ constructor(props) {
 }
 
 handleSubmit(data) {
-  updateBlogPost(this.state.id_cliente, data);
+  updateCliente(this.state.id_cliente, data);
   window.location.href='/cliente';
 }
 

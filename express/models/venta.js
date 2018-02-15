@@ -4,8 +4,9 @@ var venta = {};
  
 //Obtenemos todos los venta
 venta.getVenta = function(callback) {
-	if (connection)	{
-		connection.query('SELECT (SELECT nombre FROM cliente WHERE id_cliente=venta.id_cliente) AS nombre_cliente,id_venta,fecha FROM venta', function(error, rows) {
+	if (connection)	{		
+		var sql = 'SELECT (SELECT nombre FROM cliente WHERE id_cliente=venta.id_cliente) AS nombre_cliente,id_venta,fecha FROM venta'
+		connection.query(sql, function(error, rows) {
 			if(error) {
 				throw error;
 			} else {

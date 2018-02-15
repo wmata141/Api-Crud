@@ -13,7 +13,7 @@ import {
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 
-import { fetchBlogPost } from './ActionVenta';
+import { fetchVenta } from './ActionVenta';
 
 const style = {
   products: {display: 'flex',alignItems: 'stretch',flexWrap: 'wrap'},
@@ -31,7 +31,7 @@ class List extends Component {
       ventas: []
     };
 
-    fetchBlogPost(this.props.match.params.id_venta)
+    fetchVenta(this.props.match.params.id_venta)
       .then((data) => {
           this.setState(state => {
               console.log(data);
@@ -138,8 +138,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchBlogPost(vent) {
-      dispatch(fetchBlogPost(vent));
+    fetchVenta(vent) {
+      dispatch(fetchVenta(vent));
     }
   };
 }

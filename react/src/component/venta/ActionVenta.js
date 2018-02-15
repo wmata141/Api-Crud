@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export function loadVentas() {
+export function fetchVentas() {
     return dispatch => {
       return axios.get("/venta")
       .then(response => {
         dispatch({
-          type: "REPLACE_VENTAS",
+          type: "FETCH_VENTAS",
           ventas: response.data
         })
       });
@@ -36,7 +36,7 @@ export function addToCompra(cart, id) {
   };
 };
 
-export function fetchBlogPost(id) {
+export function fetchVenta(id) {
     return fetch("/venta/" + id, {
         method: 'GET',
         mode: 'CORS'
@@ -44,23 +44,16 @@ export function fetchBlogPost(id) {
     .catch(err => err);
 }
 
-const addToCart = product => {
+export function addToCart(product) {
     return {
         type: "ADD_TO_CART",
         product
     }
 };
 
-const removeFromCart = product => {
+export function removeFromCart(product) {
     return {
         type: "REMOVE_FROM_CART",
         product
     }
-};
-
-export {
-  // loadProducts,
-  addToCart,
-  removeFromCart,
-  // addToCompra
 };

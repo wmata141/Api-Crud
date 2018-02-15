@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -13,17 +13,18 @@ import {
 import Paper from 'material-ui/Paper';
 
 import { Button, Glyphicon } from 'react-bootstrap';
-import { removeFromCart, fetchBlogPost } from './ActionProducto';
+import { deleteProducto, fetchProducto } from './ActionProducto';
 
 const style = {
-  products: {display: 'flex',alignItems: 'stretch',flexWrap: 'wrap'},
+  productos: {display: 'flex',alignItems: 'stretch',flexWrap: 'wrap'},
   product: {width: '140px'},
   paper: { margin:20, textAlign:'center'},
   derecha: { textAlign: 'right' }
 };
 
-const List = ({ products, removeFromCart, fetchBlogPost }) => {
+class List extends Component {
 
+  render() {
   const emptyMessage = (
     <Paper style={style.paper} zDepth={2}>
     <Table>
@@ -43,7 +44,7 @@ const List = ({ products, removeFromCart, fetchBlogPost }) => {
       </TableRow>
       </TableHeader>
     </Table>
-    <h1>There are no products yet in your collection</h1>
+    <h1>There are no productos yet in your collection</h1>
     </Paper>
   );
 
@@ -65,8 +66,8 @@ const List = ({ products, removeFromCart, fetchBlogPost }) => {
           </TableRow>
         </TableHeader>
       </Table>
-      <div style={style.products}>
-          {products.map(product =>
+      <div style={style.productos}>
+          {this.props.productos.map(product =>
             <div key={product.id_producto}>
             <div className="thumbnail" style={style.product} key={product.id_cliente}>
               <div className="panel-heading">
@@ -79,7 +80,7 @@ const List = ({ products, removeFromCart, fetchBlogPost }) => {
                   <div className="btn-group btn-group-sm pull-right">
                       <Button  role="button" bsStyle="info"><Link to={`/producto/detail/${product.id_producto}`}><Glyphicon glyph="glyphicon glyphicon-eye-open" /></Link></Button>
                       <Button  role="button" bsStyle="success"><Link to={`/producto/update/${product.id_producto}`}><Glyphicon glyph="glyphicon glyphicon-edit" /></Link> </Button>
-                      <Button  role="button" bsStyle="warning" onClick={() => removeFromCart(product)}><Link to={`/producto`}> <Glyphicon glyph="glyphicon glyphicon-trash" /></Link></Button>
+                      <Button  role="button" bsStyle="warning" onClick={() => this.props.deleteProducto(product)}><Link to={`/producto`}> <Glyphicon glyph="glyphicon glyphicon-trash" /></Link></Button>
                   </div>
                 </div>
               </div>
@@ -92,24 +93,26 @@ const List = ({ products, removeFromCart, fetchBlogPost }) => {
 
   return (
     <div>
-      {products.length === 0 ? emptyMessage : productsList}
+      {this.props.productos.length === 0 ? emptyMessage : productsList}
     </div>
   );
-};
+
+};//End del render
+};//End de la clase
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    productos: state.productos
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeFromCart(product) {
-      dispatch(removeFromCart(product));
+    deleteProducto(product) {
+      dispatch(deleteProducto(product));
     },
-    fetchBlogPost(product) {
-      dispatch(fetchBlogPost(product));
+    fetchProducto(product) {
+      dispatch(fetchProducto(product));
     }
   };
 }

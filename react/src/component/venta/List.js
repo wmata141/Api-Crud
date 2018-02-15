@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
-import { ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import {
   Table,
   TableHeader,
@@ -12,12 +10,14 @@ import {
   TableRow,
 } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import { ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 // Colors
 import {blue500, cyan500} from 'material-ui/styles/colors';
 // Button
 import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
 
-import { fetchBlogPost } from './ActionVenta';
+import { fetchVenta } from './ActionVenta';
 
 const style = {
   products: {display: 'flex',alignItems: 'stretch',flexWrap: 'wrap'},
@@ -27,10 +27,6 @@ const style = {
 };
 
 class List extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
   const emptyMessage = (
@@ -73,7 +69,7 @@ class List extends Component {
     <TableRow>
       <TableHeaderColumn colSpan="4" style={style.derecha}>
       <ToolbarGroup>
-          <ToolbarTitle text="Ventas" />
+          <ToolbarTitle text="VENTAS" />
           <Link to="/"><RaisedButton
               label="SALIR" primary={true} />
           </Link>
@@ -116,8 +112,9 @@ class List extends Component {
       {this.props.ventas.length === 0 ? emptyMessage : ventasList}
     </div>
   );
-  };
-}
+
+};//End del render
+};//End de la clase
 const mapStateToProps = state => {
   return {
     ventas: state.ventas
@@ -126,8 +123,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchBlogPost(vent) {
-      dispatch(fetchBlogPost(vent));
+    fetchVenta(vent) {
+      dispatch(fetchVenta(vent));
     }
   };
 }

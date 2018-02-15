@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
 import Form from './Form';
-import { createBlogPost } from './ActionCliente';
+import { createCliente } from './ActionCliente';
 
 export default class Create extends Component {
 
     handleSubmit(data) {
-      console.log("handleSubmit",data);
-      createBlogPost(data);
+      createCliente(data);
       window.location.href='/cliente';
     }
 

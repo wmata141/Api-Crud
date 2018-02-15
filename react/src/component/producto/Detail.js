@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import { fetchBlogPost } from './ActionProducto';
+import { fetchProducto } from './ActionProducto';
 
 export default class Update extends Component {
 
@@ -16,7 +16,7 @@ constructor(props) {
     image:""
   };
 
-  fetchBlogPost(this.state.id_producto)
+  fetchProducto(this.state.id_producto)
     .then((data) => {
         this.setState(state => {
             state.codigo = data[0].codigo;
@@ -30,18 +30,12 @@ constructor(props) {
     .catch((err) => {
         console.error('err', err);
     });
-
-}
-
-handleSubmit(data) {
-  fetchBlogPost(this.state.id_producto, data);
-  window.location.href='/cliente';
 }
 
   render() {
     return (
       <div>
-        <Form onSubmit={this.handleSubmit.bind(this)}
+        <Form
           titulo="Detalle Producto"
           disabled={true}
           id_producto = { this.state.id_producto }

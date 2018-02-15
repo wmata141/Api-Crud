@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import { fetchBlogPost } from './ActionCliente';
+import { fetchCliente } from './ActionCliente';
 
 export default class Detail extends Component {
 
@@ -15,7 +15,7 @@ constructor(props) {
     edad:null
   };
 
-  fetchBlogPost(this.state.id_cliente)
+  fetchCliente(this.state.id_cliente)
     .then((data) => {
         this.setState(state => {
             state.cedula=data[0].cedula;
@@ -30,14 +30,10 @@ constructor(props) {
     });
 }
 
-handleSubmit(data) {
-
-}
-
   render() {
     return (
       <div>
-        <Form onSubmit={this.handleSubmit.bind(this)}
+        <Form
           titulo="Detalle Cliente"
           disabled={true}
           id_cliente={this.state.id_cliente}

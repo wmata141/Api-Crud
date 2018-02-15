@@ -9,11 +9,15 @@ import registerServiceWorker from './registerServiceWorker';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
-import { loadProducts } from './component/producto/ActionProducto';
-import { loadVentas } from './component/venta/ActionVenta';
+import { fetchClientes } from './component/cliente/ActionCliente';
+import { fetchProductos } from './component/producto/ActionProducto';
+import { fetchVentas } from './component/venta/ActionVenta';
 
-store.dispatch(loadProducts());
-store.dispatch(loadVentas());
+
+store.dispatch(fetchClientes());
+store.dispatch(fetchProductos());
+store.dispatch(fetchVentas());
+
 
 render(
     <Provider store={store}>

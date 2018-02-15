@@ -1,16 +1,32 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-const products = (state=[], action) => {
+const productos = (state=[], action) => {
   switch(action.type) {
-    case "REPLACE_PRODUCTS":
-       return action.products;
+    case "FETCH_PRODUCTS":
+      return action.productos;
 
-    case "REMOVE_PRODUCTS":
+    case "DELETE_PRODUCTS":
       return state.filter(product => product.id_producto !== action.product.id_producto);
 
     case "SELECT_PRODUCTS":
-      return action.products;
+      return action.productos;
+
+   default:
+    return state;
+  }
+};
+
+const clientes = (state=[], action) => {
+  switch(action.type) {
+    case "FETCH_CLIENTES":
+      return action.clientes;
+
+    case "DELETE_CLIENTES":
+      return state.filter(client => client.id_cliente !== action.client.id_cliente);
+
+    case "SELECT_CLIENTES":
+      return action.clientes;
 
    default:
     return state;
@@ -19,7 +35,7 @@ const products = (state=[], action) => {
 
 const ventas = (state=[], action) => {
   switch(action.type) {
-    case "REPLACE_VENTAS":
+    case "FETCH_VENTAS":
        return action.ventas;
 
     case "ADD_VENTAS":
@@ -57,8 +73,6 @@ const cart = (state=[], action) => {
   }
 };
 
-
-
 const logger = store => next => action => {
     console.log('dispatching', action)
     let result = next(action)
@@ -66,4 +80,4 @@ const logger = store => next => action => {
     return result
 }
 
-export default createStore(combineReducers({cart, products, ventas}), applyMiddleware(logger, thunk));
+export default createStore(combineReducers({cart, productos, ventas, clientes}), applyMiddleware(logger, thunk));

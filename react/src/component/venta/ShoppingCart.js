@@ -13,10 +13,6 @@ const styles = {
 
 class ShoppingCart extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <Panel header="Shopping Cart">
