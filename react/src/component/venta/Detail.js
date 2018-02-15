@@ -34,7 +34,6 @@ class List extends Component {
     fetchVenta(this.props.match.params.id_venta)
       .then((data) => {
           this.setState(state => {
-              console.log(data);
               var valores = [];
               for(var i=0;i<data.length;i++){
                 valores[i] = {
@@ -112,7 +111,7 @@ class List extends Component {
       stripedRows={true}
     >
     {this.state.ventas.map(vent =>
-      <TableRow key={vent.id_venta} selectable={false}>
+      <TableRow key={vent.id_producto} selectable={false}>
         <TableRowColumn>{vent.nombre_producto}</TableRowColumn>
         <TableRowColumn>{vent.cantidad}</TableRowColumn>
       </TableRow>

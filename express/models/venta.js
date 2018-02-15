@@ -19,7 +19,7 @@ venta.getVenta = function(callback) {
 //Obtenemos un Venta por su id
 venta.getVentaById = function(id,callback) {
 	if (connection) {
-		var sql = 'SELECT (SELECT nombre FROM producto WHERE id_producto=venta_detalle.id_producto) AS nombre_producto, cantidad FROM venta_detalle WHERE id_venta =' + connection.escape(id);
+		var sql = 'SELECT (SELECT nombre FROM producto WHERE id_producto=venta_detalle.id_producto) AS nombre_producto, cantidad, id_producto FROM venta_detalle WHERE id_venta =' + connection.escape(id);
 		connection.query(sql, function(error, row) {
 			if(error) {
 				throw error;
