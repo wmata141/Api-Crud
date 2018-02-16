@@ -19,7 +19,7 @@ venta.getVenta = function(callback) {
 //Obtenemos un Venta por su id
 venta.getVentaById = function(id,callback) {
 	if (connection) {
-		var sql = 'SELECT (SELECT nombre FROM producto WHERE id_producto=venta_detalle.id_producto) AS nombre_producto, cantidad, id_producto FROM venta_detalle WHERE id_venta =' + connection.escape(id);
+		var sql = 'SELECT nombre_producto,cantidad FROM venta_detalle WHERE id_venta =' + connection.escape(id);
 		connection.query(sql, function(error, row) {
 			if(error) {
 				throw error;
@@ -34,28 +34,38 @@ venta.getVentaById = function(id,callback) {
 venta.insertVenta = function(VentaData,callback) {
 	if (connection) {			
 		var venta = [];			
-		venta = {
-			id_venta: null,
-			id_cliente: VentaData[0].id_cliente
-		}
-		connection.query('INSERT INTO venta SET ?', venta, function(error, result) {
+
+		var sql = 'SELECT nombre FROM cliente WHERE id_cliente =' + connection.escape(VentaData[0].id_cliente);
+		connection.query(sql, function(error, row) {
 			if(error) {
 				throw error;
 			} else {
-				//insertamos el resto con el id de Venta insertado	
-				var venta_detalle = [];			
-				for(var i=0; i<VentaData.length; i++) {
-					venta_detalle[i] = {
-						id_venta: result.insertId,
-						id_producto: VentaData[i].id_producto,
-						cantidad: VentaData[i].cantidad
-					}				
-					connection.query('INSERT INTO venta_detalle SET ?', venta_detalle[i]);
+				venta = {
+					id_venta: null,
+					id_cliente: VentaData[0].id_cliente,
+					nombre_cliente: row[0].nombre
 				}
-				//devolvemos el id de Venta insertado	
-				callback(null, result.insertId);
+				connection.query('INSERT INTO venta SET ?', venta, function(error, result) {
+					if(error) {
+						throw error;
+					} else {
+						//insertamos el resto con el id de Venta insertado	
+						var venta_detalle = [];			
+						for(var i=0; i<VentaData.length; i++) {
+							venta_detalle[i] = {
+								id_venta: result.insertId,
+								id_producto: VentaData[i].id_producto,
+								nombre_producto: VentaData[i].nombre_producto,
+								cantidad: VentaData[i].cantidad
+							}				
+							connection.query('INSERT INTO venta_detalle SET ?', venta_detalle[i]);
+						}
+						//devolvemos el id de Venta insertado	
+						callback(null, result.insertId);
+					}
+				});
 			}
-		});
+		});		
 	}
 }
  

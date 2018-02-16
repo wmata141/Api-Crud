@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-02-2018 a las 14:58:49
+-- Tiempo de generación: 16-02-2018 a las 14:58:45
 -- Versión del servidor: 10.1.24-MariaDB
 -- Versión de PHP: 7.1.6
 
@@ -41,7 +41,6 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`id_cliente`, `cedula`, `nombre`, `apellido`, `edad`) VALUES
-(1, '20840141', 'William Mata', 'Xavier Medina', 26),
 (5, '20840122', 'William Mata', 'Colon', 25),
 (152, '20840123', 'Williberto ', 'Wiliberto', 25),
 (153, '21122272', 'Jefe', 'Jefe', 26);
@@ -78,6 +77,7 @@ INSERT INTO `producto` (`id_producto`, `codigo`, `tipo`, `nombre`, `precio`, `im
 CREATE TABLE `venta` (
   `id_venta` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
+  `nombre_cliente` varchar(50) NOT NULL,
   `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -85,9 +85,8 @@ CREATE TABLE `venta` (
 -- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `venta` (`id_venta`, `id_cliente`, `fecha`) VALUES
-(98, 151, '2018-02-14 14:37:48'),
-(99, 1, '2018-02-14 20:13:40');
+INSERT INTO `venta` (`id_venta`, `id_cliente`, `nombre_cliente`, `fecha`) VALUES
+(111, 5, 'William Mata', '2018-02-16 09:43:58');
 
 -- --------------------------------------------------------
 
@@ -98,6 +97,7 @@ INSERT INTO `venta` (`id_venta`, `id_cliente`, `fecha`) VALUES
 CREATE TABLE `venta_detalle` (
   `id_venta` int(10) NOT NULL,
   `id_producto` int(10) NOT NULL,
+  `nombre_producto` varchar(50) NOT NULL,
   `cantidad` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -105,11 +105,9 @@ CREATE TABLE `venta_detalle` (
 -- Volcado de datos para la tabla `venta_detalle`
 --
 
-INSERT INTO `venta_detalle` (`id_venta`, `id_producto`, `cantidad`) VALUES
-(98, 1, 1),
-(98, 3, 1),
-(98, 4, 1),
-(99, 1, 1);
+INSERT INTO `venta_detalle` (`id_venta`, `id_producto`, `nombre_producto`, `cantidad`) VALUES
+(111, 1, 'Naranja', 1),
+(111, 3, 'Mandarina', 1);
 
 --
 -- Índices para tablas volcadas
@@ -160,7 +158,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 --
 -- Restricciones para tablas volcadas
 --

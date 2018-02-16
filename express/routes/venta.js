@@ -30,6 +30,7 @@ router.post('/venta', function(request, response) {
             datosVenta[i] = {       
                   id_cliente : id[0].id_cliente,      
                   id_producto : request.body[i].id_producto,
+                  nombre_producto : request.body[i].nombre,
                   cantidad : request.body[i].stock_user
             };
       }          

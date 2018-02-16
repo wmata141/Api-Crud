@@ -1,22 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-const productos = (state=[], action) => {
-  switch(action.type) {
-    case "FETCH_PRODUCTS":
-      return action.productos;
-
-    case "DELETE_PRODUCTS":
-      return state.filter(product => product.id_producto !== action.product.id_producto);
-
-    case "SELECT_PRODUCTS":
-      return action.productos;
-
-   default:
-    return state;
-  }
-};
-
 const clientes = (state=[], action) => {
   switch(action.type) {
     case "FETCH_CLIENTES":
@@ -27,6 +11,22 @@ const clientes = (state=[], action) => {
 
     case "SELECT_CLIENTES":
       return action.clientes;
+
+   default:
+    return state;
+  }
+};
+
+const productos = (state=[], action) => {
+  switch(action.type) {
+    case "FETCH_PRODUCTS":
+      return action.productos;
+
+    case "DELETE_PRODUCTS":
+      return state.filter(product => product.id_producto !== action.product.id_producto);
+
+    case "SELECT_PRODUCTS":
+      return action.productos;
 
    default:
     return state;
@@ -65,7 +65,7 @@ const cart = (state=[], action) => {
       return state.filter(product => product.id_producto !== action.product.id_producto);
 
     case "ADD_TO_COMPRA":
-      state.length=0;
+      state.length = 0;
       return state.concat();
 
    default:
