@@ -37,12 +37,12 @@ const ventas = (state=[], action) => {
   switch(action.type) {
     case "FETCH_VENTAS":
        return action.ventas;
-
-    case "ADD_VENTAS":
-      return state.concat(action.ventas);
-
-    case "SELECT_VENTAS":
-      return action.ventas;
+    // 
+    // case "ADD_VENTAS":
+    //   return state.concat(action.ventas);
+    //
+    // case "SELECT_VENTAS":
+    //   return action.ventas;
 
    default:
     return state;

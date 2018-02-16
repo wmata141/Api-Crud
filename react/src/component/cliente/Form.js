@@ -139,13 +139,15 @@ validate = () => {
               disabled={this.props.disabled}
               onChange={e => this.change(e)}
             /><br /><br />
-            <RaisedButton
-              onClick={e => this.onSubmit(e)}
-              label="GUARDAR"
-              primary={true}
-              disabled={this.props.disabled}
-              style={style.button}
-            />
+            <Link to="/cliente">
+              <RaisedButton
+                onClick={e => this.onSubmit(e)}
+                label="GUARDAR"
+                primary={true}
+                disabled={this.props.disabled}
+                style={style.button}
+              />
+            </Link>
             <Link to="/cliente"><RaisedButton
                 label="REGRESAR" primary={true} style={style.button} />
             </Link>

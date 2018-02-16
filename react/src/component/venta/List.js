@@ -17,7 +17,8 @@ import {blue500, cyan500} from 'material-ui/styles/colors';
 // Button
 import EyeIcon from 'material-ui/svg-icons/image/remove-red-eye';
 
-import { fetchVenta } from './ActionVenta';
+import { fetchVenta, fetchVentas } from './ActionVenta';
+import store from '../../store';
 
 const style = {
   products: {display: 'flex',alignItems: 'stretch',flexWrap: 'wrap'},
@@ -27,6 +28,11 @@ const style = {
 };
 
 class List extends Component {
+
+  componentDidMount() {
+    store.dispatch(fetchVentas());
+
+  }
 
   render() {
   const emptyMessage = (

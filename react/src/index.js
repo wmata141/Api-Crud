@@ -13,11 +13,9 @@ import { fetchClientes } from './component/cliente/ActionCliente';
 import { fetchProductos } from './component/producto/ActionProducto';
 import { fetchVentas } from './component/venta/ActionVenta';
 
-
 store.dispatch(fetchClientes());
 store.dispatch(fetchProductos());
 store.dispatch(fetchVentas());
-
 
 render(
     <Provider store={store}>
